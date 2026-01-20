@@ -558,11 +558,11 @@ export const proceduralParticleShader = {
             float glow = 1.0 - smoothstep(0.0, 0.5, dist);
             glow = pow(glow, 1.5);
             
-            // Core
+            // Core - reduced brightness
             float core = 1.0 - smoothstep(0.0, 0.15, dist);
             
-            vec3 color = vColor * glow + vec3(1.0) * core * 0.5;
-            float alpha = glow * vAlpha;
+            vec3 color = vColor * glow * 0.6 + vec3(1.0) * core * 0.2; // Reduced intensity
+            float alpha = glow * vAlpha * 0.4; // Much lower alpha
             
             gl_FragColor = vec4(color, alpha);
         }

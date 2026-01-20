@@ -7,14 +7,13 @@
     import CustomCursor from '$lib/components/CustomCursor.svelte';
     import WebGLCanvas from '$lib/components/WebGLCanvas.svelte';
     import WhatsAppFloat from '$lib/components/WhatsAppFloat.svelte';
-    import CursorTrail from '$lib/components/CursorTrail.svelte';
 
     let loading = true;
 
     onMount(() => {
         setTimeout(() => {
             loading = false;
-        }, 2000);
+        }, 1500); // Slightly faster load
     });
 </script>
 
@@ -28,7 +27,6 @@
 {/if}
 
 <CustomCursor />
-<CursorTrail />
 <WebGLCanvas />
 <Navbar />
 

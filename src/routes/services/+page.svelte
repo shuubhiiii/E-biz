@@ -1,7 +1,6 @@
 <script>
     import { fly } from 'svelte/transition';
     import CTASection from '$lib/components/CTASection.svelte';
-    import ProceduralEffects from '$lib/components/ProceduralEffects.svelte';
     import { gsapAnimate, gsapTilt, gsapHover, gsapSplitText } from '$lib/actions/gsapAction.js';
 
     const services = [
@@ -11,7 +10,8 @@
             color: 'primary',
             title: 'Software Development',
             description: 'Custom enterprise software solutions designed to streamline your business operations and drive growth.',
-            features: ['Enterprise Applications', 'ERP & CRM Systems', 'Cloud Solutions', 'API Development', 'Database Design', 'Legacy Modernization']
+            features: ['Enterprise Applications', 'ERP & CRM Systems', 'Cloud Solutions', 'API Development', 'Database Design', 'Legacy Modernization'],
+            image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=600&fit=crop'
         },
         {
             id: 'mobile',
@@ -19,7 +19,8 @@
             color: 'purple',
             title: 'Mobile App Development',
             description: 'Native and cross-platform mobile applications that deliver exceptional user experiences.',
-            features: ['iOS Development', 'Android Development', 'React Native', 'Flutter Apps', 'App Store Optimization', 'Maintenance & Support']
+            features: ['iOS Development', 'Android Development', 'React Native', 'Flutter Apps', 'App Store Optimization', 'Maintenance & Support'],
+            image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=600&fit=crop'
         },
         {
             id: 'web',
@@ -27,7 +28,8 @@
             color: 'cyan',
             title: 'Web Development',
             description: 'Modern, responsive websites and web applications built with cutting-edge technologies.',
-            features: ['React & Vue.js', 'Node.js Backend', 'E-commerce Solutions', 'Progressive Web Apps', 'CMS Development', 'Performance Optimization']
+            features: ['React & Vue.js', 'Node.js Backend', 'E-commerce Solutions', 'Progressive Web Apps', 'CMS Development', 'Performance Optimization'],
+            image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=600&fit=crop'
         },
         {
             id: 'marketing',
@@ -35,7 +37,8 @@
             color: 'gold',
             title: 'Digital Marketing',
             description: 'Data-driven marketing strategies that increase visibility and drive conversions.',
-            features: ['SEO & SEM', 'Social Media Marketing', 'Content Strategy', 'PPC Campaigns', 'Email Marketing', 'Analytics & Reporting']
+            features: ['SEO & SEM', 'Social Media Marketing', 'Content Strategy', 'PPC Campaigns', 'Email Marketing', 'Analytics & Reporting'],
+            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=600&fit=crop'
         },
         {
             id: 'infrastructure',
@@ -43,7 +46,8 @@
             color: 'accent',
             title: 'IT Infrastructure',
             description: 'Robust infrastructure solutions to ensure your business runs smoothly and securely.',
-            features: ['Cloud Migration', 'AWS & Azure Services', 'Network Security', 'DevOps Solutions', 'System Integration', '24/7 Monitoring']
+            features: ['Cloud Migration', 'AWS & Azure Services', 'Network Security', 'DevOps Solutions', 'System Integration', '24/7 Monitoring'],
+            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=600&fit=crop'
         },
         {
             id: 'training',
@@ -51,7 +55,8 @@
             color: 'pink',
             title: 'Education & Training',
             description: 'Professional IT training programs to upskill your team with the latest technologies.',
-            features: ['Corporate Training', 'Online Courses', 'Certification Programs', 'Hands-on Workshops', 'Custom Curriculum', 'Placement Assistance']
+            features: ['Corporate Training', 'Online Courses', 'Certification Programs', 'Hands-on Workshops', 'Custom Curriculum', 'Placement Assistance'],
+            image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=600&fit=crop'
         }
     ];
 </script>
@@ -98,19 +103,8 @@
             </div>
             <div class="service-visual">
                 <div class="visual-card {service.color}" use:gsapTilt={{ max: 15, scale: 1.03 }}>
-                    {#if i === 0}
-                        <ProceduralEffects type="particles" />
-                    {:else if i === 1}
-                        <ProceduralEffects type="wormhole" />
-                    {:else if i === 2}
-                        <ProceduralEffects type="waves" />
-                    {:else if i === 3}
-                        <ProceduralEffects type="terrain" />
-                    {:else if i === 4}
-                        <ProceduralEffects type="particles" />
-                    {:else}
-                        <ProceduralEffects type="wormhole" />
-                    {/if}
+                    <img src={service.image} alt={service.title} loading="lazy" />
+                    <div class="visual-overlay"></div>
                     <i class={service.icon}></i>
                 </div>
             </div>
@@ -254,38 +248,84 @@
     }
 
     .visual-card {
-        width: 300px;
-        height: 300px;
+        width: 350px;
+        height: 350px;
         border-radius: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 6rem;
-        color: rgba(255,255,255,0.2);
+        font-size: 5rem;
+        color: rgba(255,255,255,0.95);
         position: relative;
         overflow: hidden;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
-    .visual-card :global(canvas) {
+    .visual-card img {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        border-radius: 30px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .visual-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .visual-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .visual-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.08), transparent 30%);
+        animation: rotate 8s linear infinite;
+        z-index: 2;
+    }
+
+    @keyframes rotate {
+        100% { transform: rotate(360deg); }
     }
 
     .visual-card i {
         position: relative;
-        z-index: 2;
+        z-index: 3;
+        filter: drop-shadow(0 4px 20px rgba(0,0,0,0.8));
+        text-shadow: 0 0 30px currentColor;
     }
 
-    .visual-card.primary { background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(139,92,246,0.3)); }
-    .visual-card.purple { background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(236,72,153,0.3)); }
-    .visual-card.cyan { background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(34,211,238,0.3)); }
-    .visual-card.gold { background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(251,191,36,0.3)); }
-    .visual-card.accent { background: linear-gradient(135deg, rgba(0,255,136,0.3), rgba(34,197,94,0.3)); }
-    .visual-card.pink { background: linear-gradient(135deg, rgba(236,72,153,0.3), rgba(244,63,94,0.3)); }
+    .visual-card.primary .visual-overlay { 
+        background: linear-gradient(135deg, rgba(99,102,241,0.7), rgba(139,92,246,0.7));
+    }
+    .visual-card.purple .visual-overlay { 
+        background: linear-gradient(135deg, rgba(168,85,247,0.7), rgba(236,72,153,0.7));
+    }
+    .visual-card.cyan .visual-overlay { 
+        background: linear-gradient(135deg, rgba(6,182,212,0.7), rgba(34,211,238,0.7));
+    }
+    .visual-card.gold .visual-overlay { 
+        background: linear-gradient(135deg, rgba(245,158,11,0.7), rgba(251,191,36,0.7));
+    }
+    .visual-card.accent .visual-overlay { 
+        background: linear-gradient(135deg, rgba(0,200,100,0.7), rgba(34,197,94,0.7));
+    }
+    .visual-card.pink .visual-overlay { 
+        background: linear-gradient(135deg, rgba(236,72,153,0.7), rgba(244,63,94,0.7));
+    }
 
     @media (max-width: 968px) {
         .service-detail {
@@ -302,9 +342,9 @@
         }
 
         .visual-card {
-            width: 200px;
-            height: 200px;
-            font-size: 4rem;
+            width: 280px;
+            height: 280px;
+            font-size: 3.5rem;
         }
     }
 </style>
