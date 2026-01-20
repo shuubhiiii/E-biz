@@ -45,6 +45,7 @@
     const navLinks = [
         { href: '/', label: 'Home' },
         { href: '/services', label: 'Services' },
+        { href: '/showcase', label: '3D Showcase' },
         { href: '/about', label: 'About' },
         { href: '/portfolio', label: 'Portfolio' },
         { href: '/contact', label: 'Contact' }
